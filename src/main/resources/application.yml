@@ -1,0 +1,19 @@
+jwt_secret: '9AEW57AzDzHiamTadS3Nzal28MP1yo9bkwlqBmeUj27POsBleTfvhb7Yzr3g33g34grgb3MxAưewe0/xJEsx7RpYRorLUDEUugrQ=='
+jwt_access_token_validity_period: 3600000
+jwt_refresh_token_validity_period: 31536000000
+base_api: '/api/v1'
+domain: 'http://13.213.53.246'
+directory: 'C:/Users/Administrator/Desktop/apache-tomcat-8.5.78/webapps'
+subfolder_avatar: '/file/avatar'
+spring:
+  profiles:
+    active: local
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
