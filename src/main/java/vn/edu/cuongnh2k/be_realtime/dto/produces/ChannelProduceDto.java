@@ -21,6 +21,8 @@ public class ChannelProduceDto extends BaseProduceDto<Long> {
 
     private ChannelEnum type;
 
+    private String avatar;
+
     private List<UserChannelProduceDto> userChannels;
 
     private List<MessageProduceDto> messages;

@@ -27,6 +27,9 @@ public class ChannelEntity extends BaseEntity {
     @Column(name = "type", nullable = false)
     private ChannelEnum type;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     @OneToMany(mappedBy = "channel")
     private List<UserChannelEntity> userChannels;
 
