@@ -23,6 +23,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import vn.edu.cuongnh2k.be_realtime.enums.RoleEnum;
+import vn.edu.cuongnh2k.be_realtime.socket.UserHandshakeHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Audi
 
     private final UserDetailServiceConfig mUserDetailServiceConfig;
     private final FilterConfig mFilterConfig;
-
+    private final UserHandshakeHandler mUserHandshakeHandler;
     @Value("${base_api}")
     private String BASE_API;
 
@@ -49,7 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Audi
         config.setAllowCredentials(true);
         List<String> list = new ArrayList<>();
         list.add("http://localhost:8080");
-        list.add("http://localhost:63342");
         config.setAllowedOrigins(list);
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
@@ -59,14 +59,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Audi
     }
 
     @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint(BASE_API + "/basic/chat").setAllowedOrigins("*").withSockJS();
-        registry.addEndpoint(BASE_API + "/basic/chat").setAllowedOrigins("*");
+    public void configureMessageBroker(final MessageBrokerRegistry registry) {
+        registry.enableSimpleBroker("/topic");
+        registry.setApplicationDestinationPrefixes("/ws");
     }
 
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setApplicationDestinationPrefixes("/app").enableSimpleBroker("/topic");
+    public void registerStompEndpoints(final StompEndpointRegistry registry) {
+        registry.addEndpoint("/our-websocket")
+                .setHandshakeHandler(mUserHandshakeHandler)
+                .withSockJS();
     }
 
     @Bean
@@ -106,7 +108,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Audi
                 BASE_API + "/device/**",
                 BASE_API + "/message/**",
                 BASE_API + "/user-channel/**",
-                BASE_API + "/channel/**").hasAnyAuthority(RoleEnum.ROLE_USER.toString(), RoleEnum.ROLE_ADMIN.toString());
+                BASE_API + "/channel/**",
+                "/our-websocket").hasAnyAuthority(RoleEnum.ROLE_USER.toString(), RoleEnum.ROLE_ADMIN.toString());
         http.authorizeRequests().antMatchers(BASE_API + "/admin/**").hasAnyAuthority(RoleEnum.ROLE_ADMIN.toString());
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilterBefore(mFilterConfig, UsernamePasswordAuthenticationFilter.class);
