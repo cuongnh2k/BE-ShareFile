@@ -1,7 +1,6 @@
 package com.example.besharefile.entities;
 
 import com.example.besharefile.basess.BaseEntity;
-import com.example.besharefile.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,19 +10,18 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
-@SuperBuilder
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "roles")
-public class RoleEntity extends BaseEntity {
+@NoArgsConstructor
+@SuperBuilder
+@Entity
+@Table(name = "folder_histories")
+public class FolderHistoriesEntity extends BaseEntity {
 
-    @Enumerated(EnumType.STRING)
-    @Column(unique = true)
-    private RoleEnum name;
+    private String note;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<UserEntity> users;
+    @ManyToOne
+    @JoinColumn(name = "folder_id")
+    private FoldersEntity folders;
 }
