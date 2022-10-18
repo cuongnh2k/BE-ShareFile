@@ -1,6 +1,6 @@
 package com.example.besharefile.config;
 
-import com.example.besharefile.entities.UserEntity;
+import com.example.besharefile.entities.UsersEntity;
 import com.example.besharefile.exceptions.BadRequestException;
 import com.example.besharefile.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class UserDetailServiceConfig implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity userEntity = mUserRepository.findByEmail(email);
+        UsersEntity userEntity = mUserRepository.findByEmail(email);
         if (Objects.isNull(userEntity)) {
             throw new BadRequestException(email + " not found in database");
         } else {

@@ -1,7 +1,7 @@
 package com.example.besharefile;
 
-import com.example.besharefile.entities.RoleEntity;
-import com.example.besharefile.entities.UserEntity;
+import com.example.besharefile.entities.RolesEntity;
+import com.example.besharefile.entities.UsersEntity;
 import com.example.besharefile.enums.RoleEnum;
 import com.example.besharefile.services.RoleService;
 import com.example.besharefile.services.UserService;
@@ -28,15 +28,15 @@ public class Application extends SpringBootServletInitializer {
     CommandLineRunner run(RoleService mRoleService, UserService mUserService) {
         return args -> {
             try {
-                mRoleService.createOne(RoleEntity.builder().name(RoleEnum.ROLE_ADMIN).build());
+                mRoleService.createOne(RolesEntity.builder().name(RoleEnum.ROLE_ADMIN).build());
             } catch (Exception ignored) {
             }
             try {
-                mRoleService.createOne(RoleEntity.builder().name(RoleEnum.ROLE_USER).build());
+                mRoleService.createOne(RolesEntity.builder().name(RoleEnum.ROLE_USER).build());
             } catch (Exception ignored) {
             }
             try {
-                mUserService.createOneAdmin(UserEntity.builder()
+                mUserService.createOneAdmin(UsersEntity.builder()
                         .email("cuongnh2k@gmail.com")
                         .password("123")
                         .build());

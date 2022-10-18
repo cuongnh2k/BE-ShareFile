@@ -1,6 +1,6 @@
 package com.example.besharefile.services.impl;
 
-import com.example.besharefile.entities.UserEntity;
+import com.example.besharefile.entities.UsersEntity;
 import com.example.besharefile.repositories.RoleRepository;
 import com.example.besharefile.repositories.UserRepository;
 import com.example.besharefile.services.UserService;
@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository mRoleRepository;
     private final PasswordEncoder mPasswordEncoder;
 
-    public void createOneAdmin(UserEntity entity) {
+    public void createOneAdmin(UsersEntity entity) {
         entity.setPassword(mPasswordEncoder.encode(entity.getPassword()));
         entity.setRoles(mRoleRepository.findAll());
         mUserRepository.save(entity);

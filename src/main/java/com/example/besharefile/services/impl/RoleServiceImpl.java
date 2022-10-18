@@ -1,6 +1,6 @@
 package com.example.besharefile.services.impl;
 
-import com.example.besharefile.entities.RoleEntity;
+import com.example.besharefile.entities.RolesEntity;
 import com.example.besharefile.repositories.RoleRepository;
 import com.example.besharefile.services.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository mRoleRepository;
 
-    public void createOne(RoleEntity entity) {
+    public void createOne(RolesEntity entity) {
         mRoleRepository.save(entity);
     }
 }

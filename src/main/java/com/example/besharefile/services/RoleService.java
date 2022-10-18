@@ -1,8 +1,8 @@
 package com.example.besharefile.services;
 
-import com.example.besharefile.entities.RoleEntity;
+import com.example.besharefile.entities.RolesEntity;
 
 public interface RoleService {
 
-    void createOne(RoleEntity entity);
+    void createOne(RolesEntity entity);
 }
